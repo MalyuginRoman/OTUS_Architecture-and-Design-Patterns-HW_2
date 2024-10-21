@@ -14,7 +14,7 @@ class object : public IMovable, public IRotable
   void delObject();
 
   private:
-  objectP object;
+  List<objectP> objects;
 }
 
 class objectP
