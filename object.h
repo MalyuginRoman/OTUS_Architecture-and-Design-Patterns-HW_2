@@ -7,6 +7,10 @@ struct Coords
 class object
 {
   public:
+  void CreateObject();
+
+  private:
+  string name;
   int velocity;
   int angular;
   Coords coord;
