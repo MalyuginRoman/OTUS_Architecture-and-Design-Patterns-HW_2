@@ -8,6 +8,7 @@ class object
 {
   public:
   void CreateObject();
+  void MovingObject();
 
   private:
   string name;
