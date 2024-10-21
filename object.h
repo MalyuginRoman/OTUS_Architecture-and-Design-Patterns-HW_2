@@ -1,14 +1,19 @@
+#include "IMovable.h"
+#include "IRotable.h"
+
 struct Coords
 {
   int x;
   int y;
 };
 
-class object
+class object : public IMovable, public IRotable
 {
   public:
   void CreateObject();
   void MovingObject();
+  void GetCoords();
+  void SetCoords();
 
   private:
   string name;
