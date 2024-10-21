@@ -23,6 +23,8 @@ class objectP
   void MovingObject();
   void GetCoords();
   void SetCoords();
+  void SetProperties();
+  void ChangeProperties();
 
   private:
   string name;
