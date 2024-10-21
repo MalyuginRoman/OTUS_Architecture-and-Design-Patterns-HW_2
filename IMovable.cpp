@@ -1,4 +1,6 @@
 // прямолинейное движение
+#include "IMovable.h"
+
 IMovable::IMovable()
 {
 }
