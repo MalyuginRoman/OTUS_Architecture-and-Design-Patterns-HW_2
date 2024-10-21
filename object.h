@@ -10,6 +10,16 @@ struct Coords
 class object : public IMovable, public IRotable
 {
   public:
+  void addObject();
+  void delObject();
+
+  private:
+  objectP object;
+}
+
+class objectP
+{
+  public:
   void CreateObject();
   void MovingObject();
   void GetCoords();
