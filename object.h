@@ -20,7 +20,6 @@ class object : public IMovable, public IRotable
 class objectP
 {
   public:
-  void CreateObject();
   void MovingObject();
   void GetCoords();
   void SetCoords();
