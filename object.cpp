@@ -2,7 +2,7 @@
 
 object::object()
 {
-  obj_ = new objectP;
+  objectP obj_ = new objectP();
   name = "_";
   velocity = 0;
   angular = 0;
@@ -11,22 +11,37 @@ object::object()
 
 object::~object()
 {
+  DeleteAll(objects);
+  objects.clear;
 }
   
-void object::CreateObject()
+void object::addObject()
+{
+  objects.append(obj_);
+}
+
+void object::deleteObject()
 {
 }
 
-void object::MovingObject()
+void objectP::MovingObject()
 {
 }
 
-void object::GetCoords(object obj, int x_, int y_)
+void objectP::GetCoords(object obj, int x_, int y_)
 {
   obj.x = x_;
   obj.y = y_;
 }
 
-void object::SetCoords()
+void objectP::SetCoords()
+{
+}
+
+void objectP::SetProperties()
+{
+}
+
+void objectP::ChangeProperties()
 {
 }
