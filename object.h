@@ -1,35 +1,46 @@
-#include <iostream>
-#include "IMovable.h"
-#include "IRotable.h"
+#include <QList>
+#include <QString>
 
-struct Coords
+class object
 {
-  int x;
-  int y;
+public:
+    object(int id, int velocity, double angular, int placeX, int placeY);
+    ~object();
+
+    int id() const;
+    int velocity() const;
+    double angular() const;
+    int placeX() const;
+    int placeY() const;
+    void setVelocity(int value);
+    void setAngular(double value);
+    void setPlaceX(int value);
+    void setPlaceY(int value);
+private:
+    class objectP* imp;
 };
 
-class object : public IMovable, public IRotable
+class objectList
 {
-  public:
-  void addObject();
-  void delObject();
+public:
+    objectList();
+    ~objectList();
+    void reset();
 
-  private:
-  List<objectP*> objects;
-}
 
-class objectP
-{
-  public:
-  void MovingObject();
-  void GetCoords();
-  void SetCoords();
-  void SetProperties();
-  void ChangeProperties();
+    int defaultVelocity() const;
+    double defaultAngular() const;
+    int defaultPlaceX() const;
+    int defaultPlaceY() const;
+    void setDefaultVelocity(int value);
+    void setDefaultAngular(double value);
+    void setDefaultPlaceX(int value);
+    void setDefaultPlaceY(int value);
 
-  private:
-  string name;
-  int velocity;
-  int angular;
-  Coords coord;
-}
+    object* add(int id, int velocity, double angular, int placeX, int placeY);
+    bool isEmpty() const;
+    int count() const;
+    const QList<object *>& list() const;
+private:
+    class objectListP* imp;
+};
