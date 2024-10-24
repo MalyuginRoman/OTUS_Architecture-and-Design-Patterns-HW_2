@@ -1,5 +1,6 @@
 #include <iostream>
 #include "EventManager.h"
+#include "object.h"
 
 int main(int ac, char **av)
 {
