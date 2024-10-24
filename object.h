@@ -1,5 +1,5 @@
-#include <QList>
-#include <QString>
+#include <list>
+#include <string>
 
 class object
 {
