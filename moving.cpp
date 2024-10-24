@@ -1,6 +1,9 @@
 #include <iostream>
 #include "EventManager.h"
 
+class EventManager;
+class objectList;
+
 int main(int ac, char **av)
 {
     objectList* list = new objectList;
