@@ -1,47 +1,156 @@
 #include "object.h"
 
-object::object()
+class objectP
 {
-  objectP obj_ = new objectP();
-  name = "_";
-  velocity = 0;
-  angular = 0;
-  GetCoords(obj, 0, 0);
-}
+public:
+    int id;
+    int velocity;
+    double angular;
+    int placeX;
+    int placeY;
+    objectP(int id, int velocity, double angular, int placeX, int placeY) :
+        id(id),
+        velocity(velocity),
+        angular(angular),
+        placeX(placeX),
+        placeY(placeY)
+    {
+    }
+};
 
+object::object(int id, int velocity, double angular, int placeX, int placeY) :
+    imp(new objectP(id, velocity, angular, placeX, placeY))
+{
+}
 object::~object()
 {
-  DeleteAll(objects);
-  objects.clear;
+    delete imp;
 }
-  
-void object::addObject()
+int object::id() const
 {
-  objects.append(obj_);
+    return imp->id;
+}
+int object::velocity() const
+{
+    return imp->velocity;
+}
+double object::angular() const
+{
+    return imp->angular;
+}
+int object::placeX() const
+{
+    return imp->placeX;
+}
+int object::placeY() const
+{
+    return imp->placeY;
+}
+void object::setVelocity(int value)
+{
+    imp->velocity = value;
+}
+void object::setAngular(double value)
+{
+    imp->angular = value;
+}
+void object::setPlaceX(int value)
+{
+    imp->placeX = value;
+}
+void object::setPlaceY(int value)
+{
+    imp->placeY = value;
 }
 
-void object::deleteObject()
+class objectListP
+{
+public:
+    QList<object*> list;
+    int defaultVelocity;
+    double defaultAngular;
+    int defaultPlaceX;
+    int defaultPlaceY;
+
+    objectListP():
+        defaultVelocity(0),
+        defaultAngular(0.),
+        defaultPlaceX(0),
+        defaultPlaceY(0)
+    {
+    }
+    ~objectListP()
+    {
+        qDeleteAll(list);
+    }
+    void reset()
+    {
+        qDeleteAll(list);
+        list.clear();
+    }
+    object *add(int id, int velocity, double angular, int placeX, int placeY)
+    {
+        object* spaceship = new object(id, velocity, angular, placeX, placeY);
+        list.push_back(spaceship);
+        return spaceship;
+    }
+};
+objectList::objectList() : imp(new objectListP)
 {
 }
-
-void objectP::MovingObject()
+objectList::~objectList()
 {
+    delete imp;
 }
-
-void objectP::GetCoords(object obj, int x_, int y_)
+void objectList::reset()
 {
-  obj.x = x_;
-  obj.y = y_;
+    imp->reset();
 }
-
-void objectP::SetCoords()
+int objectList::defaultVelocity() const
 {
+    return imp->defaultVelocity;
 }
-
-void objectP::SetProperties()
+double objectList::defaultAngular() const
 {
+    return imp->defaultAngular;
 }
-
-void objectP::ChangeProperties()
+int objectList::defaultPlaceX() const
 {
+    return imp->defaultPlaceX;
+}
+int objectList::defaultPlaceY() const
+{
+    return imp->defaultPlaceY;
+}
+void objectList::setDefaultVelocity(int value)
+{
+    imp->defaultVelocity = value;
+}
+void objectList::setDefaultAngular(double value)
+{
+    imp->defaultAngular = value;
+}
+void objectList::setDefaultPlaceX(int value)
+{
+    imp->defaultPlaceX = value;
+}
+void objectList::setDefaultPlaceY(int value)
+{
+    imp->defaultPlaceY = value;
+}
+object *objectList::add(int id, int velocity, double angular, int placeX, int placeY)
+{
+    return imp->add(id, velocity, angular, placeX, placeY);
+}
+bool objectList::isEmpty() const
+{
+    return imp->list.isEmpty();
+}
+int objectList::count() const
+{
+    return imp->list.count();
+}
+const QList<object *> &objectList::list() const
+{
+    return imp->list;
 }
