@@ -1,5 +1,5 @@
 #include <iostream>
-#include <QList>
+#include <list>
 #include "EventManager.h"
 #include "IMovable.h"
 #include "IRotable.h"
