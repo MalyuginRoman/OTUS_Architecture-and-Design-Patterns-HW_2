@@ -1,96 +1,44 @@
-#include <iostream>
-#include <QList>
-#include "EventManager.h"
+// прямолинейное движение
 #include "IMovable.h"
-#include "IRotable.h"
+#include "math.h"
 
-const int Xmax = 100;
-const int Ymax = 100;
-const int Tmax = 100;
-const int dt = 1;
+const double TR = 0.01745329252;
 
-class IMovable;
-class IRotable;
-
-class EventManagerP
+class IMovableP
 {
 public:
-    objectList* list;
-    int countX, countY;
-
-    EventManagerP():
-        countX(0),
-        countY(0)
+    int x;
+    int y;
+    int v;
+    double a;
+    int dt;
+    IMovableP(int x, int y, double a, int v, int dt) :
+        x(x),
+        y(y),
+        a(a),
+        v(v),
+        dt(dt)
     {
-    }
-    ~EventManagerP()
-    {
-    }
-    bool init(objectList* starship)
-    {
-        int count = starship->count();
-        for(int i = 0; i < count; i ++)
-        {
-            const object *obj = starship->list().at(i);
-            if(!checkPlaceObject(obj)) return false;
-            if(!checkVelocityObject(obj)) return false;
-            list = starship;
-        }
-        return true;
-    }
-    bool checkPlaceObject(const object *obj)
-    {
-        if(obj->placeX() < 0 || obj->placeY() < 0)
-            return false;
-        return true;
-    }
-    bool checkVelocityObject(const object *obj)
-    {
-        if(obj->velocity() < 0 || obj->angular() < 0)
-            return false;
-        return true;
-    }
-    bool execute(objectList* starship)
-    {
-        std::cout << "Start moving objects" << std::endl;
-        int count = starship->count();
-        for(int i = 0; i < count; i ++)
-        {
-            object *obj = starship->list().at(i);
-            if(obj->velocity() != 0)
-            {
-                IMovable *mov = new IMovable(obj->placeX(), obj->placeY(),
-                                             obj->velocity(), obj->angular(), dt);
-                mov->getPosition(obj, dt);
-            }
-            if(obj->angular() != 0)
-            {
-                IRotable *rot = new IRotable(obj->placeX(), obj->placeY(),
-                                             obj->angular());
-                rot->getAngular(obj, 15);
-            }
-        }
-        return true;
     }
 };
 
-EventManager::EventManager() : imp(new EventManagerP)
+IMovable::IMovable(int x, int y, double a, int v, int dt) :
+    imp(new IMovableP(x, y, a, v, dt))
 {
 }
 
-EventManager::~EventManager()
+IMovable::~IMovable()
 {
     delete imp;
 }
 
-bool EventManager::init(objectList* list)
+void IMovable::getPosition(object *obj, int dt)
 {
-    bool result = imp->init(list);
-    return result;
+    obj->setPlaceX(obj->velocity() * cos(obj->angular()*TR) * dt);
+    obj->setPlaceY(obj->velocity() * sin(obj->angular()*TR) * dt);
 }
 
-bool EventManager::execute(objectList* list)
+void IMovable::getVelocity(object *obj, int value)
 {
-    bool result = imp->execute(list);
-    return result;
+    obj->setVelocity(value);
 }
