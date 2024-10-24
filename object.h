@@ -40,7 +40,7 @@ public:
     object* add(int id, int velocity, double angular, int placeX, int placeY);
     bool isEmpty() const;
     int count() const;
-    const QList<object *>& list() const;
+    const list<object *>& list() const;
 private:
     class objectListP* imp;
 };
