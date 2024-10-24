@@ -1,4 +1,6 @@
 // прямолинейное движение
+#include "object.h"
+
 class IMovable
 {
 public:
