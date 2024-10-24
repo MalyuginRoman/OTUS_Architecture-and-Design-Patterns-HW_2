@@ -1,3 +1,5 @@
+#include "object.h"
+
 class EventManager
 {
 public:
