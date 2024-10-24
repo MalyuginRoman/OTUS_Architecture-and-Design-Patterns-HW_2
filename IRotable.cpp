@@ -1,22 +1,32 @@
 // Поворот
 #include "IRotable.h"
 
-IRotable::IRotable()
+class IRotableP
+{
+public:
+    int x;
+    int y;
+    double a;
+    IRotableP(int x, int y, double a) :
+        x(x),
+        y(y),
+        a(a)
+    {
+    }
+};
+
+IRotable::IRotable(int x, int y, double a) :
+    imp(new IRotableP(x, y, a))
 {
 }
 
 IRotable::~IRotable()
 {
-}
-  
-void IRotable::getDirection()
-{
+    delete imp;
 }
 
-void IRotable::setDirection()
+void IRotable::getAngular(object *obj, int value)
 {
+    obj->setAngular(value);
 }
 
-void IRotable::getAngular()
-{
-}
